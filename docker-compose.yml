@@ -1,0 +1,26 @@
+# from https://www.youtube.com/watch?v=b-dAWqTh60M
+version: '3.1'
+
+services:
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - wholewa:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password #default USER is root
+
+  wordpress:
+    build: ./wordpress
+    volumes: 
+      - ./plugins:/var/www/html/wp-content/plugins
+      - ./themes:/var/www/html/wp-content/themes
+    ports:
+      - 80:80
+
+volumes:
+  wholewa:
